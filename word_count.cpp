@@ -6,6 +6,7 @@
 #include <sstream>
 #include <cctype>
 #include <curl/curl.h>
+#include <set>
 
 using namespace std;
 
@@ -82,9 +83,12 @@ void countWords(const string& content, map<string, int>& wordCount) {
         // Remove punctuation and convert to lowercase
         word.erase(remove_if(word.begin(), word.end(), ::ispunct), word.end());
         transform(word.begin(), word.end(), word.begin(), ::tolower);
-        if (!word.empty()) {
+        if(mySet.find(word)){
+            if (!word.empty()) {
             wordCount[word]++;
+            }
         }
+        
     }
 }
 
