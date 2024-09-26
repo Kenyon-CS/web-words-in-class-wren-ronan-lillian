@@ -36,7 +36,7 @@ string fetchWebPage(const string& url) {
     return data;
 }
 
-// Function to remove HTML tags
+// Function to remove HTML tags       
 string removeHTMLTags(const string& content) {
     string result;
     bool insideTag = false;
@@ -54,12 +54,31 @@ string removeHTMLTags(const string& content) {
     return result;
 }
 
+set readFileAddSet(){
+    std::set<std::string> mySet;
+    std::ifstream file("words.txt");
+
+    if (file.is_open()) {
+        std::string line;
+        while (getline(file, line)) {
+            mySet.insert(line);
+        }
+        file.close();
+    } else {
+        std::cerr << "Unable to open file" << std::endl;
+    }
+
+    return mySet;
+
+
+}
 // Function to process the web page content and count words
 void countWords(const string& content, map<string, int>& wordCount) {
     stringstream ss(content);
     string word;
 
     while (ss >> word) {
+        
         // Remove punctuation and convert to lowercase
         word.erase(remove_if(word.begin(), word.end(), ::ispunct), word.end());
         transform(word.begin(), word.end(), word.begin(), ::tolower);
